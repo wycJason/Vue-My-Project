@@ -3,14 +3,17 @@
     <h1 class="fontColor fontSize">{{ msg }}</h1>
     <h1>id：{{ id }}</h1>
     <ul>
-      <li :key="index" v-for="(item, index) in test">{{ item.name }}:{{ item.age }}:{{ index }}</li>
+      <li :key="index" v-for="(item, index) in test">
+        {{ item.name }}:{{ item.age }}:{{ index }}
+      </li>
     </ul>
     <ul>
       <li :key="index" v-for="(item, index) in obj">{{ index }}:{{ item }}</li>
     </ul>
     <h1>动态路径参数paramsValue：{{ $route.params.paramsValue }}</h1>
     <h1>查询参数id：{{ $route.query.id }}</h1>
-    <test>{{query}}</test>
+    <test>{{ query }}</test>
+    <button @click="routerInstance" type="primary">点击</button>
   </div>
 </template>
 
@@ -25,15 +28,33 @@ export default {
       test: [
         { name: "jason", age: 28 },
         { name: "eric", age: 29 },
-        { name: "king", age: 30 }
+        { name: "king", age: 30 },
       ],
       obj: {
         project: "Javascript",
-        sex: "male"
-      }
+        sex: "male",
+      },
     };
   },
-  props: ['query'],
+  beforeRouteEnter(to, from, next) {
+    console.log(" beforeRouteEnter !");
+    next();
+  },
+  beforeRouteUpdate(to, from, next) {
+    console.log(" beforeRouteUpdate !");
+  },
+  beforeRouteLeave(to, from, next) {
+    console.log(" beforeRouteLeave !");
+    const answer = window.confirm(
+      "Do you really want to leave? you have unsaved changes!"
+    );
+    if (answer) {
+      next();
+    } else {
+      next(false);
+    }
+  },
+  props: ["query"],
   watch: {
     "$route.query.id"() {
       //监视查询参数
@@ -47,9 +68,14 @@ export default {
 		  				order:5201314
 		  			}
 		  		})*/
+    },
+  },
+  methods: {
+    routerInstance(){
+      console.log("router",this.$router);
+      console.log("route",this.$route);
     }
   },
-  methods: {},
   created() {
     console.log("$moment");
     console.log(
@@ -57,7 +83,7 @@ export default {
         "YYYY-MM-DD HH:mm:ss"
       )
     );
-  }
+  },
 };
 </script>
 

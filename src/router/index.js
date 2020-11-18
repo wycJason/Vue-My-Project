@@ -52,29 +52,14 @@ const router = new Router({
         {
             path: '/Jason/:paramsValue',
             name: 'Jason',
-            component: Jason,
+            component: () =>
+                import ('../components/Jason'),
             //props: true,
             props: (route) => ({
                 query: route.query.q
             }),
             meta: {
                 requiresAuth: false
-            },
-            beforeRouteEnter(to, from, next) {
-                console.log(' beforeRouteEnter !')
-                next()
-            },
-            beforeRouteUpdate(to, from, next) {
-                console.log(' beforeRouteUpdate !')
-            },
-            beforeRouteLeave(to, from, next) {
-                console.log(' beforeRouteLeave !')
-                const answer = window.confirm('Do you really want to leave? you have unsaved changes!')
-                if (answer) {
-                    next()
-                } else {
-                    next(false)
-                }
             }
         },
         {
