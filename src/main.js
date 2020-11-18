@@ -19,7 +19,7 @@ Vue.config.productionTip = false;
 import iView from 'iview';
 //import 'iview/dist/styles/iview.css';
 
-//引入jquery
+//引入jquery 
 import $ from "jquery";
 import "devextreme/dist/dx.all.js";
 
