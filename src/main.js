@@ -25,7 +25,7 @@ import "devextreme/dist/dx.all.js";
 
 Vue.use(iView);
 
-//自定义引用全局注册的组件
+//自定义引用全局注册的组件 
 import customGlobalComponent from './lib/comGloabal.js'
 Vue.use(customGlobalComponent)
 
